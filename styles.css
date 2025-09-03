@@ -1,0 +1,19 @@
+#nifty-widget {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 999999;
+  min-width: 200px;
+  text-align: center;
+}
+#nifty-widget .nifty-header {
+  font-weight: bold;
+  margin-bottom: 4px;
+}

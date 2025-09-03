@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nifty 50 Live</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    .stock-widget {
+      width: 260px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: system-ui, -apple-system, sans-serif;
+      text-align: center;
+    }
+
+    .stock-title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+
+    .stock-info {
+      margin-bottom: 16px;
+    }
+
+    .stock-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .stock-change {
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    .stock-change.positive {
+      color: #16a34a; /* green for positive */
+    }
+
+    .stock-change.negative {
+      color: #dc2626; /* red for negative */
+    }
+
+    .stock-updated {
+      font-size: 0.875rem;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    .stock-btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .stock-price::before {
+      content: "₹ ";
+    }
+
+    .stock-btn:hover {
+      background: #1d4ed8;
+    }
+    .stock-select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.95rem;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+    .stock-select:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+  </style>
+  <body>
+    <div class="stock-widget">
+      <h2 class="stock-title" id="indexTitle">NIFTY 50 Index</h2>
+
+      <!-- Dropdown for index -->
+      <select id="indexSelect" class="stock-select">
+        <option value="NIFTY 50" selected>NIFTY 50</option>
+        <option value="NIFTY BANK">NIFTY BANK</option>
+        <option value="NIFTY FIN SERVICE">NIFTY FIN SERVICE</option>
+        <option value="NIFTY MIDCAP 100">NIFTY MIDCAP 100</option>
+        <option value="NIFTY NEXT 50">NIFTY NEXT 50</option>
+      </select>
+
+      <!-- Dropdown for refresh interval -->
+      <select id="intervalSelect" class="stock-select">
+        <option value="5000" selected>5 sec</option>
+        <option value="10000">10 sec</option>
+        <option value="15000">15 sec</option>
+      </select>
+
+      <div class="stock-info">
+        <p id="price" class="stock-price">Loading...</p>
+        <p id="change" class="stock-change"></p>
+        <p id="lastUpdated" class="stock-updated"></p>
+      </div>
+      <button id="toggleBtn" class="stock-btn">Start</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

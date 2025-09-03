@@ -76,6 +76,7 @@ You can create them using any icon generator (recommend using a simple stock/gra
 ---
 
 ## ⚠️ Notes
+- This project is for educational/personal use. Data provided by NSE India.
 - The NSE API sometimes blocks requests if too frequent. Adjust refresh time to avoid being rate-limited.
 - Works best with intervals ≥ 5 seconds.
 - Ensure your system clock is accurate for correct timestamps.
@@ -90,8 +91,10 @@ You can create them using any icon generator (recommend using a simple stock/gra
 ---
 
 👨‍💻 Developed for educational and personal tracking of NIFTY indices.
+
 ---
 ## SCREEN SHORT 
 ![alt text](image-1.png)
+---
 ![alt text](image.png)
 

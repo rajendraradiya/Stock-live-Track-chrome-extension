@@ -1,4 +1,5 @@
 let fetchInterval = null;
+let selectedValue = null;
 let isRunning = false;
 
 function safeBroadcast(msg) {
@@ -17,15 +18,17 @@ function safeBroadcast(msg) {
 
 async function fetchAndStoreQuote() {
   try {
-    const select = document.getElementById("indexSelect");
+    console.log("Data", selectedValue);
     const res = await fetch(
-      `https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050`,
+      `https://www.nseindia.com/api/equity-stockIndices?index=${
+        selectedValue ? encodeURIComponent(selectedValue) : "NIFTY%2050"
+      }`,
       {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-          "Accept": "application/json",
-          "Referer": "https://www.nseindia.com/"
-        }
+          Accept: "application/json",
+          Referer: "https://www.nseindia.com/",
+        },
       }
     );
 
@@ -33,18 +36,21 @@ async function fetchAndStoreQuote() {
     const data = await res.json();
     const nifty = data.data[0];
 
+
+    console.log(nifty)
+
     const quote = {
       price: nifty.lastPrice,
       change: nifty.change,
       changePercent: nifty.pChange,
       time: Date.now(),
-      shortName: "NIFTY 50"
+      shortName: nifty.symbol,
     };
 
     await chrome.storage.local.set({
       lastQuote: quote,
       lastUpdated: Date.now(),
-      lastError: null
+      lastError: null,
     });
 
     safeBroadcast({ type: "nifty:update", payload: quote });
@@ -52,7 +58,7 @@ async function fetchAndStoreQuote() {
     console.error("Fetch error:", err);
     await chrome.storage.local.set({
       lastError: String(err),
-      lastUpdated: Date.now()
+      lastUpdated: Date.now(),
     });
     safeBroadcast({ type: "nifty:error", payload: String(err) });
   }
@@ -66,7 +72,7 @@ function startFetching() {
   fetchAndStoreQuote();
 
   // 🔹 Then fetch every 5 sec
-  fetchInterval = setInterval(fetchAndStoreQuote, 5000);
+  fetchInterval = setInterval(fetchAndStoreQuote, 10000);
 
   chrome.storage.local.set({ running: true });
 }
@@ -81,6 +87,7 @@ function stopFetching() {
 }
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  selectedValue = msg?.id;
   if (msg?.type === "nifty:start") {
     startFetching();
     sendResponse({ ok: true });

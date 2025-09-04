@@ -15,6 +15,7 @@ function createWidget() {
 
 function updateWidget(quote) {
   const widget = createWidget();
+  widget.querySelector(".nifty-header").textContent = `₹${quote.shortName}`;
   widget.querySelector(".nifty-price").textContent = `₹${quote.price}`;
   widget.querySelector(".nifty-change").textContent =
     `${quote.change.toFixed(2)} (${quote.changePercent}%)`;
